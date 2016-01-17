@@ -6,6 +6,10 @@
 # repositories directly:
 #
 #     OtziSpace.Repo.insert!(%OtziSpace.SomeModel{})
+alias OtziSpace.Role
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+for role <- ~w(master client) do
+  OtziSpace.Repo.insert!( %Role{name: role} )
+end

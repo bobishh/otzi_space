@@ -4,22 +4,21 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
+    <meta name="description" content="a marketplace for tattoo artists">
+    <meta name="author" content="stoner_punk">
     <title>Hello OtziSpace!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
     <div class="container">
-      <header class="header">
+      <header class="header top-bar">
+        <span class="logo">Otzi.space</span>
         <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
+          <ul class="nav">
             <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
           </ul>
         </nav>
-        <span class="logo"></span>
       </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>

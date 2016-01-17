@@ -1,0 +1,24 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Email
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    <%= for artist <- @artists do %>
+        <tr>
+            <td>
+                <%= artist.name %>
+            </td>
+            <td>
+                <%= artist.email %>
+            </td>
+        </tr>
+    <% end %>
+    </tbody>
+</table>

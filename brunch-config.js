@@ -54,17 +54,26 @@ exports.config = {
     babel: {
       // Do not use ES6 compiler in vendor code
       ignore: [/web\/static\/vendor/]
+    },
+    postcss: {
+      processors: [
+        require('autoprefixer')(['last 8 versions']),
+        require('csswring'),
+        require('cssnext'),
+        require('precss'),
+        require('lost'),
+        require('postcss-font-magician')({hosted:"web/vendor/fonts"})
+      ]
     }
   },
 
   modules: {
     autoRequire: {
-      "js/app.js": ["web/static/js/app"],
-      "js\\app.js": ["web/static/js/app"]
+      "js/app.js": ["web/static/js/app"]
     }
   },
 
   npm: {
-    enabled: true
+    enabled: false
   }
 };
