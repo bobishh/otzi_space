@@ -6,7 +6,7 @@ defmodule OtziSpace.Auth do
   alias OtziSpace.Router.Helpers
 
   def init(opts) do
-    Keyword.fetch(opts, :repo)
+    Keyword.fetch!(opts, :repo)
   end
 
   def login(conn, user) do
@@ -19,11 +19,11 @@ defmodule OtziSpace.Auth do
     user = repo.get_by(User, email: email)
     cond do
       user && checkpw(pw, user.password_hash) ->
-        {:ok, login(conn, user)}
+        { :ok, login(conn, user) }
       user ->
-        {:error, :unauthorized, conn}
+        { :error, :unauthorized, conn }
       true ->
-        {:error, :not_found, conn}
+        { :error, :not_found, conn }
     end
   end
 

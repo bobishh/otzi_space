@@ -5,17 +5,23 @@ defmodule OtziSpace.User do
     field :name, :string
     field :email, :string
     field :password_hash, :string
+    field :bio, :binary
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
     field :confirmed, :boolean
+    field :username, :string
+    field :website, :string
+    field :profile_picture, :string
     field :confirmation_sent, :boolean
     belongs_to :role, OtziSpace.Role
+    has_many :oauth_resources, OtziSpace.OauthResource
 
     timestamps
   end
 
-  @required_fields ~w(name email password password_confirmation role_id)
-  @optional_fields ~w()
+  @oauth_fields ~w(name password bio username website profile_picture)
+  @required_fields ~w(name password password_confirmation)
+  @optional_fields ~w(email role_id bio profile_picture)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -23,6 +29,13 @@ defmodule OtziSpace.User do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
+
+
+  def oauth_changeset(model, params \\ :empty) do
+    model
+    |> cast(params, @oauth_fields, @optional_fields)
+    |> put_password_hash
+  end
 
   def changeset(model, params \\ :empty) do
     model

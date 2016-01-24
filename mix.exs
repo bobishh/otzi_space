@@ -19,7 +19,7 @@ defmodule OtziSpace.Mixfile do
   def application do
     [mod: {OtziSpace, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin]]
+                    :phoenix_ecto, :postgrex, :comeonin, :elixtagram]]
   end
 
   # Specifies which paths to compile per environment.
@@ -37,7 +37,10 @@ defmodule OtziSpace.Mixfile do
      {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
-     {:cowboy, "~> 1.0"}]
+     {:elixtagram, "~> 0.2.5"},
+     {:cowboy, "~> 1.0"},
+     {:mock, "~> 0.1.1", only: :test}
+    ]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

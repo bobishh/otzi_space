@@ -7,6 +7,7 @@ defmodule OtziSpace.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug OtziSpace.Auth, repo: OtziSpace.Repo
   end
 
   pipeline :api do
@@ -19,6 +20,8 @@ defmodule OtziSpace.Router do
     get "/", PageController, :index
     resources "/users", UserController
     resources "/artists", ArtistController
+    get "/profile", ProfileController, :index
+    get "/auth", OauthController, :auth
   end
 
   # Other scopes may use custom stacks.

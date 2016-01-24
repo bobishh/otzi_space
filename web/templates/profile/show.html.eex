@@ -1,0 +1,13 @@
+<h1>Your profile data: </h1>
+<%= if @current_user do %>
+    <img src="<%= @current_user.profile_picture %>" />
+    <h3> Name: <%= @current_user.name %> </h3>
+    <h3> Instagram username: <%= @current_user.username %> </h3>
+    <h3> Website: <%= @current_user.website %> </h3>
+    <div class="row bio">
+        <h3> Bio: </h3>
+        <pre><%= @current_user.bio %></pre>
+    </div>
+<% else %>
+    <a href="<%= @instagram_oauth_url %>">Привязать инстаграм</a>
+<% end %>

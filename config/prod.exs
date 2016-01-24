@@ -16,8 +16,14 @@ config :otzi_space, OtziSpace.Endpoint,
   url: [host: "example.com", port: 80],
   cache_static_manifest: "priv/static/manifest.json"
 
+
 # Do not print debug messages in production
 config :logger, level: :info
+
+config :elixtagram,
+  instagram_client_id: "e50d4820b01b4784839c74aa05efa08d",
+  instagram_client_secret: "5129c2294e09465097dd4d8d09dae7a0",
+  instagram_redirect_url: "http://otzi.space/auth?provider=instagram"
 
 # ## SSL Support
 #

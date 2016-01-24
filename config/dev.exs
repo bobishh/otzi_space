@@ -28,6 +28,11 @@ config :otzi_space, OtziSpace.Endpoint,
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
+config :elixtagram,
+  instagram_client_id: "e50d4820b01b4784839c74aa05efa08d",
+  instagram_client_secret: "5129c2294e09465097dd4d8d09dae7a0",
+  instagram_redirect_uri: "http://localhost:4000/auth?provider=instagram"
+
 # Set a higher stacktrace during development.
 # Do not configure such in production as keeping
 # and calculating stacktraces is usually expensive.

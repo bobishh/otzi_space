@@ -43,6 +43,7 @@ defmodule OtziSpace.AuthControllerTest do
     {:ok, login_conn} = Auth.login_by_email_and_pw(conn, @email, @password, [ repo: Repo ])
     logged_conn = send_resp(login_conn, :ok, "")
     next_conn = get(logged_conn, "/")
+    assert next_conn.assigns.current_user != nil
     assert get_session(next_conn, :user_id) == user.id
   end
 
