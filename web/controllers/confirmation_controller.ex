@@ -9,7 +9,7 @@ defmodule OtziSpace.ConfirmationController do
   def confirm(conn, %{"token" => token}) do
     cond do
       user = Repo.get_by(User, confirmation_token: token) ->
-        user = Repo.update!(Ecto.Changeset.change(user, %{confirmed: true}))
+        Repo.update!(Ecto.Changeset.change(user, %{confirmed: true}))
         conn
         |> put_flash(:info, "Account confirmed successfully.")
         |> redirect(to: Helpers.profile_path(conn, :index))

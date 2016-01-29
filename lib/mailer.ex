@@ -1,8 +1,6 @@
 defmodule OtziSpace.Mailer do
-  @config domain: Application.get_env(:my_app, :mailgun_domain),
-  key: Application.get_env(:my_app, :mailgun_key),
-  mode: :test,
-  test_file_path: "./mail.json"
+  @config domain: Application.get_env(:otzi_space, :mailgun_domain),
+  key: Application.get_env(:otzi_space, :mailgun_key)
   use Mailgun.Client, @config
 
   @from "robot@otzi.space"

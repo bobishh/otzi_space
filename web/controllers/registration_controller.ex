@@ -34,6 +34,8 @@ defmodule OtziSpace.RegistrationController do
   end
 
   defp successful_callback(conn, user) do
+    IO.puts inspect(user)
+    IO.puts inspect(confirmation_link(conn, user))
     Mailer.send_welcome_html_email(user, confirmation_link(conn, user))
     conn
     |> login(user)

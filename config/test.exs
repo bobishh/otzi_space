@@ -4,8 +4,10 @@ use Mix.Config
 # you can enable the server option below.
 config :otzi_space, OtziSpace.Endpoint,
   http: [port: 4001],
-  server: false,
-  # Mailgun config
+  server: false
+
+# Mailgun config
+config :otzi_space,
   mailgun_domain: "https://api.mailgun.net/v3/sandbox026092118ba742b6854b906c45a519ab.mailgun.org",
   mailgun_key: "key-e35639026128f4734e192d2456162e13"
 

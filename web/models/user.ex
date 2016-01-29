@@ -14,7 +14,9 @@ defmodule OtziSpace.User do
     field :profile_picture, :string
     field :confirmation_sent, :boolean
     belongs_to :role, OtziSpace.Role
-    has_many :oauth_resources, OtziSpace.OauthResource
+    has_many :oauth_resources,
+             OtziSpace.OauthResource,
+             on_delete: :delete_all
 
     timestamps
   end
@@ -42,6 +44,7 @@ defmodule OtziSpace.User do
     |> cast(params, @required_fields, @optional_fields)
     |> validate_length(:name, min: 3, max: 20)
     |> validate_length(:password, min: 6, max: 100)
+    |> unique_constraint(:email)
     |> validate_passwords()
     |> put_confirmation_token()
     |> put_password_hash()
@@ -64,7 +67,8 @@ defmodule OtziSpace.User do
   defp put_confirmation_token(changeset) do
     case changeset do
       %Ecto.Changeset{ valid?: true, changes: %{ email: email }} ->
-        put_change(changeset, :confirmation_token, Comeonin.Bcrypt.hashpwsalt(email))
+        token = Phoenix.Token.sign(OtziSpace.Endpoint, "user", email)
+        put_change(changeset, :confirmation_token, token)
       _ -> changeset
     end
   end
