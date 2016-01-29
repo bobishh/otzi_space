@@ -4,9 +4,11 @@ use Mix.Config
 # you can enable the server option below.
 config :otzi_space, OtziSpace.Endpoint,
   http: [port: 4001],
-  server: false
+  server: false,
+  # Mailgun config
+  mailgun_domain: "https://api.mailgun.net/v3/sandbox026092118ba742b6854b906c45a519ab.mailgun.org",
+  mailgun_key: "key-e35639026128f4734e192d2456162e13"
 
-# Print only warnings and errors during test
 config :logger, level: :warn
 
 config :elixtagram,

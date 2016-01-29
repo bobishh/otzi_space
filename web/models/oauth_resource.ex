@@ -8,6 +8,7 @@ defmodule OtziSpace.OauthResource do
     field :email, :string
     field :uid, :string
     field :username, :string
+    field :profile_picture, :string
     belongs_to :user, OtziSpace.User
 
     timestamps

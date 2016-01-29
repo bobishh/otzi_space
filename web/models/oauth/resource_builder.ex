@@ -8,6 +8,7 @@ defmodule OtziSpace.Oauth.ResourceBuilder do
 
   defp form_resource_attrs(oauth_user) do
     %{ name: oauth_user.name,
+       profile_picture: oauth_user.profile_picture,
        type: oauth_user.type,
        username: oauth_user.username,
        uid: oauth_user.uid,

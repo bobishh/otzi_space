@@ -5,6 +5,13 @@ $active-link-color: #c22b38;
 $panel-bg: #1f1729;
 
 @custom-selector :--link a, .link;
+body {
+    transition: all 0.4s;
+}
+
+a {
+    transition: all 0.4s;
+}
 .table {
     width: 100%;
 }
@@ -13,8 +20,26 @@ $panel-bg: #1f1729;
     margin-top: 3em;
 }
 
+.form-group {
+    input[type="text"], input[type="password"] {
+        height: 1em;
+        font-family: Lato;
+        width: 100%;
+        font-size: 2em;
+        display: inline-block;
+    }
+}
+
+.login-form {
+    width: 80%;
+    position: relative;
+    text-align: center;
+    left: 9%;
+    top: 3em;
+    height: 60%;
+}
+
 .logo {
-    font-family: malam;
     vertical-align: middle;
     margin-left: 1em;
     font-size: 2em;
@@ -25,7 +50,7 @@ nav[role="navigation"]{
 
 body {
     margin: 0;
-    font-family: Designosaur;
+    font-family: Lato;
 }
 
 

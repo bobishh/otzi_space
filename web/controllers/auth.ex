@@ -14,6 +14,12 @@ defmodule OtziSpace.Auth do
     |> put_session(:user_id, user.id)
   end
 
+  def logout(conn) do
+    conn
+    |> put_session(:user_id, nil)
+    |> put_current_user(nil)
+  end
+
   def login_by_email_and_pw(conn, email, pw, opts) do
     {:ok, repo} = Keyword.fetch(opts, :repo)
     user = repo.get_by(User, email: email)

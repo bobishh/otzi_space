@@ -6,17 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="a marketplace for tattoo artists">
     <meta name="author" content="stoner_punk">
-    <title>Hello OtziSpace!</title>
+    <title>OtziSpace. Tattoo artists marketplace.</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
     <div class="container">
       <header class="header top-bar">
-        <span class="logo">Otzi.space</span>
+        <span class="logo"><%= link "Ötzi.space", to: page_path(@conn, :index)  %></span>
         <nav role="navigation">
           <ul class="nav">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
+            <%= if @current_user do %>
+                <li><%= link "Profile", to: profile_path(@conn, :index) %></li>
+            <% end %>
+            <li><%= link "Artists", to: artist_path(@conn, :index) %></li>
+            <li><%= login_or_logout(@conn) %></li>
           </ul>
         </nav>
       </header>

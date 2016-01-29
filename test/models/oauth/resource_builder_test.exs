@@ -9,7 +9,7 @@ defmodule OtziSpace.OauthResourceBuilderTest do
   @oauth_user TestHelpers.form_oauth_user()
 
   setup do
-    { :ok, user } = TestHelpers.create_user(@oauth_user)
+    { :ok, user } = Repo.insert(TestHelpers.sample_user())
     on_exit fn ->
       Repo.delete_all(OauthResource)
       Repo.delete_all(User)
@@ -20,6 +20,11 @@ defmodule OtziSpace.OauthResourceBuilderTest do
   test "it creates resource", %{ user: user } do
     { res, _resource } = Oauth.ResourceBuilder.create_resource(user, @oauth_user)
     assert res == :ok
+  end
+
+  test "it saves profile picture link", %{user: user} do
+    { _res, resource } = Oauth.ResourceBuilder.create_resource(user, @oauth_user)
+    assert resource.profile_picture == @oauth_user.profile_picture
   end
 
 end

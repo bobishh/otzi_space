@@ -18,8 +18,11 @@ defmodule OtziSpace.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/registrations/confirm", ConfirmationController, :confirm
     resources "/users", UserController
     resources "/artists", ArtistController
+    resources "/sessions", SessionController, only: [:new, :create, :delete]
+    resources "/registrations", RegistrationController, only: [:new, :create, :delete]
     get "/profile", ProfileController, :index
     get "/auth", OauthController, :auth
   end

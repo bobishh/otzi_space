@@ -34,12 +34,14 @@ defmodule OtziSpace.Mixfile do
      {:comeonin, "~> 1.2"},
      {:phoenix_ecto, "~> 2.0"},
      {:postgrex, ">= 0.0.0"},
+     {:mailgun, "~> 0.1.2"},
      {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:elixtagram, "~> 0.2.5"},
      {:cowboy, "~> 1.0"},
-     {:mock, "~> 0.1.1", only: :test}
+     {:mock, "~> 0.1.1", only: :test},
+     {:faker, "~> 0.5", only: :test}
     ]
   end
 

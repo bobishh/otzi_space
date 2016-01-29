@@ -10,6 +10,6 @@ alias OtziSpace.Role
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-for role <- ~w(master client) do
+for role <- ~w(artist client) do
   OtziSpace.Repo.insert!( %Role{name: role} )
 end

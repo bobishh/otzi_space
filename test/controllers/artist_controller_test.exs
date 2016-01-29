@@ -4,8 +4,8 @@ defmodule OtziSpace.ArtistControllerTest do
   alias OtziSpace.Repo
 
   setup do
-    Repo.insert! %User{ name: "bob the artist", role_id: 1, email: "asdasdasd@test.test", password_hash: "ASd" }
-    Repo.insert! %User{ name: "rob the artist", role_id: 1, email: "asd11adsad@test.test", password_hash: "asldkjalskdas" }
+    Repo.insert! %User{ name: "bob the artist", role_id: 1, email: "asdasdasd@test.test", password_hash: "ASd", confirmation_token: "TOKEN" }
+    Repo.insert! %User{ name: "rob the artist", role_id: 1, email: "asd11adsad@test.test", password_hash: "asldkjalskdas", confirmation_token: "TOKEN" }
     on_exit fn() ->
       Repo.delete_all User
     end

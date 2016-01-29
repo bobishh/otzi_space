@@ -2,12 +2,30 @@
 <%= if @current_user do %>
     <img src="<%= @current_user.profile_picture %>" />
     <h3> Name: <%= @current_user.name %> </h3>
-    <h3> Instagram username: <%= @current_user.username %> </h3>
     <h3> Website: <%= @current_user.website %> </h3>
     <div class="row bio">
         <h3> Bio: </h3>
         <pre><%= @current_user.bio %></pre>
     </div>
-<% else %>
-    <a href="<%= @instagram_oauth_url %>">Привязать инстаграм</a>
+    <h2> resources </h2>
+    <%= for resource <- @current_user.oauth_resources do %>
+        <img src="<%= resource.profile_picture %>">
+        <div class="oauth-profile">
+            <dl>
+                <dt>
+                    Username
+                </dt>
+                <dd>
+                    <%= resource.username %>
+                </dd>
+                <dt>
+                    Type
+                </dt>
+                <dd>
+                    <%= resource.type %>
+                </dd>
+            </dl>
+        </div>
+    <% end %>
+    <a href="<%= @instagram_oauth_url %>">Add instagram account</a>
 <% end %>

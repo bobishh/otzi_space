@@ -12,7 +12,10 @@ config :otzi_space, OtziSpace.Endpoint,
   code_reloader: true,
   cache_static_lookup: false,
   check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]]
+  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]],
+  # Mailgun config
+  mailgun_domain: "https://api.mailgun.net/v3/sandbox026092118ba742b6854b906c45a519ab.mailgun.org",
+  mailgun_key: "key-e35639026128f4734e192d2456162e13"
 
 # Watch static and templates for browser reloading.
 config :otzi_space, OtziSpace.Endpoint,

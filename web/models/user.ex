@@ -8,8 +8,8 @@ defmodule OtziSpace.User do
     field :bio, :binary
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
+    field :confirmation_token, :string, null: false
     field :confirmed, :boolean
-    field :username, :string
     field :website, :string
     field :profile_picture, :string
     field :confirmation_sent, :boolean
@@ -19,9 +19,9 @@ defmodule OtziSpace.User do
     timestamps
   end
 
-  @oauth_fields ~w(name password bio username website profile_picture)
-  @required_fields ~w(name password password_confirmation)
-  @optional_fields ~w(email role_id bio profile_picture)
+  @required_fields ~w(email password password_confirmation)
+  @admin_fields ~w(email password)
+  @optional_fields ~w(name role_id bio profile_picture website)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -30,10 +30,10 @@ defmodule OtziSpace.User do
   with no validation performed.
   """
 
-
-  def oauth_changeset(model, params \\ :empty) do
+# fuck this changeset
+  def admin_changeset(model, params \\ :empty) do
     model
-    |> cast(params, @oauth_fields, @optional_fields)
+    |> cast(params, @admin_fields, @optional_fields)
     |> put_password_hash
   end
 
@@ -43,6 +43,7 @@ defmodule OtziSpace.User do
     |> validate_length(:name, min: 3, max: 20)
     |> validate_length(:password, min: 6, max: 100)
     |> validate_passwords()
+    |> put_confirmation_token()
     |> put_password_hash()
   end
 
@@ -57,6 +58,14 @@ defmodule OtziSpace.User do
                                      password_confirmation: pass_conf } } ->
           add_error(changeset, :password, "passwords don't match")
         _ -> changeset
+    end
+  end
+
+  defp put_confirmation_token(changeset) do
+    case changeset do
+      %Ecto.Changeset{ valid?: true, changes: %{ email: email }} ->
+        put_change(changeset, :confirmation_token, Comeonin.Bcrypt.hashpwsalt(email))
+      _ -> changeset
     end
   end
 

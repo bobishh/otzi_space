@@ -1,5 +1,6 @@
 defmodule OtziSpace.UserControllerTest do
   use OtziSpace.ConnCase
+  alias OtziSpace.TestHelpers
 
   alias OtziSpace.User
   @valid_attrs %{email: "some content", name: "some content", password: "some content", password_confirmation: "some content", role_id: 1}
@@ -27,7 +28,7 @@ defmodule OtziSpace.UserControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    user = Repo.insert! %User{}
+    user = Repo.insert! TestHelpers.sample_user
     conn = get conn, user_path(conn, :show, user)
     assert html_response(conn, 200) =~ "Show user"
   end
@@ -39,26 +40,26 @@ defmodule OtziSpace.UserControllerTest do
   end
 
   test "renders form for editing chosen resource", %{conn: conn} do
-    user = Repo.insert! %User{}
+    user = Repo.insert! TestHelpers.sample_user
     conn = get conn, user_path(conn, :edit, user)
     assert html_response(conn, 200) =~ "Edit user"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-    user = Repo.insert! %User{}
+    user = Repo.insert! TestHelpers.sample_user
     conn = put conn, user_path(conn, :update, user), user: @valid_attrs
     assert redirected_to(conn) == user_path(conn, :show, user)
     assert Repo.get_by(User, %{ email: @valid_attrs[:email] })
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    user = Repo.insert! %User{}
+    user = Repo.insert! TestHelpers.sample_user
     conn = put conn, user_path(conn, :update, user), user: @invalid_attrs
     assert html_response(conn, 200) =~ "Edit user"
   end
 
   test "deletes chosen resource", %{conn: conn} do
-    user = Repo.insert! %User{}
+    user = Repo.insert!(TestHelpers.sample_user)
     conn = delete conn, user_path(conn, :delete, user)
     assert redirected_to(conn) == user_path(conn, :index)
     refute Repo.get(User, user.id)

@@ -15,6 +15,9 @@ config :otzi_space, OtziSpace.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [host: "example.com", port: 80],
   cache_static_manifest: "priv/static/manifest.json"
+  # Mailgun config
+  mailgun_domain: "https://api.mailgun.net/v3/otzi_space.mailgun.org",
+  mailgun_key: System.get_env("MAILGUN_API_KEY")
 
 
 # Do not print debug messages in production

@@ -8,6 +8,11 @@ defmodule OtziSpace.UserTest do
   @no_email %{name: "", password: "asdasda ", password_confirmation: "asdasda"}
   @different_passwords %{email: "some content", name: "some content", password: "somecontent", password_confirmation: "some content", role_id: 1}
 
+  test "#confirmation_token on changeset not nil" do
+    changeset = User.changeset(%User{}, %{email: "sample@mail.ru", password: "password", password_confirmation: "password"})
+    assert changeset.changes.confirmation_token != nil
+  end
+
   test "changeset with valid attributes" do
     changeset = User.changeset(%User{}, @valid_attrs)
     assert changeset.valid?
