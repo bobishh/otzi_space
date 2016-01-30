@@ -7,9 +7,13 @@ defmodule OtziSpace.SessionController do
   def create(conn, %{ "session" => %{ "email" => email, "password" => password }}) do
     case login_by_email_and_pw(conn, email, password, repo: Repo) do
       { :ok, conn } ->
-        redirect(conn, to: Helpers.profile_path(conn, :index))
+        conn
+        |> put_flash(:info, "Welcome!")
+        |> redirect(to: Helpers.profile_path(conn, :index))
       { :error, reason, errors } ->
-        render(conn, "new.html", %{ errors: errors })
+        conn
+        |> put_flash(:error, "Invalid credentials.")
+        |> render("new.html", %{ errors: errors })
     end
   end
 
@@ -17,9 +21,10 @@ defmodule OtziSpace.SessionController do
     render(conn, "new.html")
   end
 
-  def delete(conn, params) do
+  def delete(conn, _params) do
     conn
     |> logout()
+    |> put_flash(:info, "Goodbye!")
     |> redirect(to: Helpers.page_path(conn, :index))
   end
 

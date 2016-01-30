@@ -16,7 +16,7 @@ defmodule OtziSpace.Mailer do
         send_email to: user.email,
                     from: @from,
                     subject: "hello!",
-                    html: "<strong>Welcome, #{user.name}!</strong>
+                    html: "<strong>Welcome, #{user.email}!</strong>
                     Please <a href=\"#{confirmation_link}\">confirm your account</a>."
   end
 end

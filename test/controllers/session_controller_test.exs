@@ -6,10 +6,16 @@ defmodule OtziSpace.SessionControllerTest do
                                              email: "some content",
                                              password: "some content",
                                              password_confirmation: "some content" })
-  setup %{conn: conn} do
-    { :ok, user } = Repo.insert(@user_changeset)
+  setup %{conn: conn} = config do
+    user = Repo.insert!(@user_changeset)
     on_exit fn ->
       Repo.delete_all User
+    end
+    if config[:logged_in] do
+      conn = conn
+      |> bypass_through(OtziSpace.Router, :browser)
+      |> get("/")
+      |> assign(:current_user, user)
     end
     { :ok, conn: conn, user: user }
   end
@@ -21,7 +27,23 @@ defmodule OtziSpace.SessionControllerTest do
     assert get_session(logged_conn, :user_id) == user.id
   end
 
-  test "puts user_id in session for user logged in with invalid credentials", %{ conn: conn, user: _user } do
+  # #TODO: fix
+  # # @tag logged_in: true
+  # test "#logout logs out user", %{conn: conn, user: user} do
+  #   resp = conn
+  #   |> delete("/sessions")
+  #   |> fetch_session()
+  #   |> fetch_flash()
+  #   assert get_flash(resp, :info) == "Googbye."
+  # end
+
+  test "sets flash in error case", %{conn: conn} do
+    resp = conn
+    |> post("/sessions", invalid_credentials())
+    assert get_flash(resp, :error) == "Invalid credentials."
+  end
+
+  test "does not login with wrong credentials", %{ conn: conn, user: _user } do
     logged_conn = conn
     |> post("/sessions", %{"session" => %{ "email" => "bullshit", "password" => "bullshit"}})
     assert get_session(logged_conn, :user_id) == nil
@@ -29,5 +51,9 @@ defmodule OtziSpace.SessionControllerTest do
 
   defp form_credentials(user) do
     %{"session" => %{ "email" =>  user.email, "password" => user.password }}
+  end
+
+  defp invalid_credentials do
+    %{"session" => %{ "email" =>  "WRONG@EMAIL.WTF", "password" => "GIBBERISH" }}
   end
 end

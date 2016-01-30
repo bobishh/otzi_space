@@ -21,7 +21,9 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: "css/app.css"
+        import: /^(web\/static\/css)/,
+        defaultExtension: "css",
+        joinTo: "css/app.css"
     },
     templates: {
       joinTo: "js/app.js"
@@ -58,9 +60,9 @@ exports.config = {
     postcss: {
       processors: [
         require('autoprefixer')(['last 8 versions']),
+        require('precss'),
         require('csswring'),
         require('cssnext'),
-        require('precss'),
         require('lost'),
         require('postcss-font-magician')({hosted:"web/vendor/fonts"})
       ]

@@ -4,7 +4,11 @@ $link-color: #812e24;
 $active-link-color: #c22b38;
 $panel-bg: #1f1729;
 
+
 @custom-selector :--link a, .link;
+:root {
+    transition: all 0.4s;
+}
 body {
     transition: all 0.4s;
 }
