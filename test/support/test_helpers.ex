@@ -15,6 +15,7 @@ defmodule OtziSpace.TestHelpers do
 
   end
 
+
   def sample_user do
     %User{id: round(:random.uniform*100), name: "name", email: random_email, password: random_password, bio: "some content", profile_picture: "some_picture.jpg", website: random_website, confirmation_token: "X_CONFIRMATION_TOKEN_X" }
   end

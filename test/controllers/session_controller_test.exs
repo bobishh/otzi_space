@@ -12,10 +12,12 @@ defmodule OtziSpace.SessionControllerTest do
       Repo.delete_all User
     end
     if config[:logged_in] do
+      # if logged in, pass conn with user assigned
       conn = conn
       |> bypass_through(OtziSpace.Router, :browser)
       |> get("/")
       |> assign(:current_user, user)
+      |> put_session(:user_id, user.id)
     end
     { :ok, conn: conn, user: user }
   end
@@ -27,15 +29,16 @@ defmodule OtziSpace.SessionControllerTest do
     assert get_session(logged_conn, :user_id) == user.id
   end
 
-  # #TODO: fix
-  # # @tag logged_in: true
-  # test "#logout logs out user", %{conn: conn, user: user} do
-  #   resp = conn
-  #   |> delete("/sessions")
-  #   |> fetch_session()
-  #   |> fetch_flash()
-  #   assert get_flash(resp, :info) == "Googbye."
-  # end
+  @tag logged_in: true
+  test "#logout logs out user", %{conn: conn, user: user} do
+    # initially user present on conn
+    assert conn.assigns.current_user == user
+    resp = conn
+    |> delete("/sessions/#{user.id}")
+    assert resp.status == 302
+    assert resp.assigns.current_user == nil
+    assert get_flash(resp, :info) == "Goodbye!"
+  end
 
   test "sets flash in error case", %{conn: conn} do
     resp = conn

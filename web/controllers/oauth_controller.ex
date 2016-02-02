@@ -18,13 +18,22 @@ defmodule OtziSpace.OauthController do
     cond do
       user = !conn.assigns.current_user && resource && resource.user ->
         oauth_login(conn, user)
-      resource && resource.user && resource.user != conn.assigns.current_user ->
+      resource && resource.user && resource.user.id == conn.assigns.current_user.id ->
+        update_resource(conn, resource, oauth_user)
+      resource && resource.user && resource.user.id != conn.assigns.current_user.id ->
         say_resource_taken(conn)
       user = !resource && conn.assigns.current_user ->
         tie_resource(conn, user, oauth_user)
       true ->
         say_not_found(conn)
     end
+  end
+
+  defp update_resource(conn, resource, oauth_user) do
+    Oauth.ResourceBuilder.update_resource(resource, oauth_user)
+    conn
+    |> put_flash(:info, "Resource updated successfully.")
+    |> redirect(to: Helpers.profile_path(conn, :index))
   end
 
   defp say_not_found(conn) do
