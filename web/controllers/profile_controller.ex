@@ -4,7 +4,7 @@ defmodule OtziSpace.ProfileController do
   plug :authenticate_user
 
   def index(conn, _params) do
-    url = Elixtagram.authorize_url!
+    url = Elixtagram.authorize_url! [:public_content, :likes, :follower_list]
     user = Repo.preload(conn.assigns.current_user, :oauth_resources)
     conn = assign(conn, :current_user, user)
     render(conn, "show.html", instagram_oauth_url: url)

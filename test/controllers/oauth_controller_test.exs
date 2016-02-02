@@ -126,5 +126,4 @@ defmodule OtziSpace.OauthControllerTest do
        uid: oauth_user.id,
        access_token: @access_token }
   end
-
 end

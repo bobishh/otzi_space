@@ -8,4 +8,12 @@ defmodule OtziSpace.ProfileView do
       _ -> nil
     end
   end
+
+  def instagram_action_link(conn, url) do
+    user = conn.assigns.current_user
+    cond do
+      user && user.oauth_resources == [] -> link("Add instagram", to: url)
+      true -> link("Update instagram", to: url)
+    end
+  end
 end

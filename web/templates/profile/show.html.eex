@@ -1,13 +1,15 @@
 <h1>Your profile data: </h1>
 <%= if @current_user do %>
-    <img src="<%= @current_user.profile_picture %>" />
-    <h3> Name: <%= @current_user.name %> </h3>
-    <h3> Website: <%= @current_user.website %> </h3>
-    <div class="row bio">
-        <h3> Bio: </h3>
-        <pre><%= @current_user.bio %></pre>
+    <div class="col-sm-12 col-md-4">
+        <img src="<%= @current_user.profile_picture %>" />
+        <h3> Name: <%= @current_user.name %> </h3>
+        <h3> Website: <%= @current_user.website %> </h3>
+        <div class="row bio">
+            <h3> Bio: </h3>
+            <pre><%= @current_user.bio %></pre>
+        </div>
     </div>
-    <h2> resources </h2>
+    <div class="col-sm-12 col-md-8">
     <%= for resource <- @current_user.oauth_resources do %>
         <div class="resource-block">
         <img src="<%= resource.profile_picture %>">
@@ -29,5 +31,6 @@
             </div>
         </div>
     <% end %>
-    <a href="<%= @instagram_oauth_url %>">Add instagram account</a>
+    </div>
+    <%= instagram_action_link(@conn, @instagram_oauth_url) %>
 <% end %>
