@@ -19,3 +19,5 @@ import "deps/phoenix_html/web/static/js/phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+import Menu from "./menu"
+let topMenu = new Menu(document.getElementById('top-menu'), document.getElementById('menu-burger'));

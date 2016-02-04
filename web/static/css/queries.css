@@ -1,11 +1,47 @@
-@define-extend mobile {
-    fontSize: 2rem;
+.menu {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
 }
 
+@define-mixin collapsed {
+    height: 0;
+    opacity: 0;
+    margin: 0;
+    visibility: none;
+}
+
+
+@define-mixin expanded {
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+}
 
 @media screen and (max-width: 480px) {
     :root {
         font-size: 1rem;
+    }
+    .menu {
+        flex-direction: column;
+    }
+    ul.nav.menu__list {
+        li {
+            height: 2em;
+        }
+        display: none;
+        flex-direction: column;
+        transition: all 0.4s;
+        justify-content: space-around;
+        &.expanded {
+            display: block;
+        }
+    }
+}
+
+@media screen and (min-width: 481px) {
+    .menu-burger {
+        @mixin collapsed;
     }
 }
 
